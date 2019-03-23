@@ -1,0 +1,305 @@
+- React
+    * is a JavaScript library for building user interfaces.
+    * HTML page is composed of recyclable, interactive, 'components' that have a
+    life cycle during which the state of the component changes.
+    * highly efficient because of notion of VirtualDOM.
+    * created and maintained by Facebook.
+
+- Why React?
+    * Modularity:
+        organize code into reusable components that can work together.
+    * Lifecycle maintenance:
+        modifying components based on state; event listeners; simplified
+        conditional rendering.
+    * JSX:
+        write HTML within JavaScript.
+
+- Components
+    * building blocks of react
+    * make up the nodes included in the VirtualDOM.
+    * include and maintain a "state" that changes with events.
+    * each component maintains state independently.
+    * applications can be configured to respond to component level events.
+
+- VirtualDOM
+    * Node tree that represents HTML elements, their attributes, and content as
+    object and properties.
+    * Selectively renders and re-renders subtrees of nodes based on state changes.
+    * efficient because it does the least amount of DOM manipulation to update
+    components.
+    * provides a layer of abstraction to the developer, providing simpler
+    programming model and high performance.
+
+
+- Normal DOM vs VirtualDOM
+    * if a node is updated in normal DOM, all the nodes re-render.
+    * however if a node is updated in VirtualDOM, two things occur:
+        - 'diff' to determine which nodes within DOM have changed.
+        - 'reconciliation' to update the nodes that are affected.
+
+- Developing with React
+    * within the page's HTML, allocate a position on the page in which the desired
+    React component will be rendered, e.g. div
+    * create a React component is JavaScript
+        - establish an initial state.
+        - define any events that could change the component's state over its
+        lifecycle.
+        - define the function to render HTML.
+    * drop the component into position allocated at the start.
+
+- Getting started
+    * create a div in the HTML body to represent the location where the React
+    component will be placed. also include the React files in the head of HTML:
+        <script src="react.js"></script>
+        <script src="react-dom.js"></script>
+    or use a cdn:
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
+    * then write JS code to create and display components in div:
+        <div id="container"></div>
+        <script type="text/jsx">
+            <!--Insert React code here-->
+        </script>
+
+- JSX
+    * JavaScript XML Syntax Transform
+    * allows user to write HTML-like tags within JavaScript.
+    * converts text(HTML) to React code.
+
+- Rendering elements using JSX
+
+      <div id="container"></div>
+          <script type="text/jsx">
+
+              ReactDOM.render(
+                  <h1>Hello, World!</h1>,
+                  document.getElementById('container')
+              );
+          </script>
+
+- React Components
+    * components are JS objects based off the React.Component prototype.
+    * components define properties, event-based state variables, and callback
+    functions.
+    * a component's 'render()' function is used to render its HTML.
+    * VirtualDOM manages each component's lifecycle and calls its render()
+    function as needed.
+
+- Creating React components
+    * 'React.createClass()' allows us to define a component.
+    * this function takes an object containing the component's specifications
+    as an argument.
+    * we can also use ES6 notation and define a class instead of a single object
+    class testComponent extends React.Component {
+      ..
+    }
+
+- React components attributes
+    * Properties
+        - attributes and values that are set when the component is created.
+        - should never be modified after initialization.
+    * State
+        - attributes and values that represent the current state of the component
+        based on what it does/represents.
+        - can be modified during the component's lifecycle.
+    * both can be used when rendering the component.
+
+- Component Properties
+    * should always be assigned upon object creation, never modified afterwards.
+    * component accesses its properties through 'this.props' which is an object
+    containing all the properties.
+
+- Component State
+    * the set of variables that can change during the component's lifecycle.
+    * should always be initialized in the "constructor".
+    * component accesses its states through 'this.state'.
+
+- Component Lifecylce
+    * the React VirtualDOM invokes callback functions on components during their
+    lifecycle.
+    * these functions fall into three categories:
+        - Mounting
+        - Updating
+        - Unmounting
+    * you can optionally implement these for controlling components.
+
+- Mounting
+    * called when a component is being created and added to VirtualDOM.
+    * 'constructor': creates component, initializes state based on properties.
+    * 'componentWillMount': invoked before component is added to VirtualDOM.
+    * 'componentDidMount': invoked after component has been added to VirtualDOM
+    and has been rendered.
+
+- Updating
+    * called when a component's props or state is changing and the component is
+    re-rendered.
+    * 'componentWillReceiveProps': invoked before receiving new props, e.g. when
+    its parent component is re-rendered. (allows us to compare components.)
+    * 'shouldComponentUpdate': can be used to determine whether to re-render.
+    * 'componentWillUpdate': invoked before re-rendering after change to state.
+    * 'componentDidUpdate': invoked after being re-rendered.
+
+- Unmounting
+    * called when a component is being removed from the VirtualDom.
+    * 'componentWillUnmount': invoked before component is removed from VirtualDOM
+    and destroyed.
+
+- Changing component's state
+    * a component's state typically changes in response to some user action or
+    "event".
+    * we can "bind" an event to a callback function within a React component.
+    * that component can then change state using its 'setState' function.
+    * this will automatically re-render the component and any other affected
+    component.
+
+- an example of a ternary operation:
+    var txt = this.state.like ? 'Unlike' : 'Like';
+    if the value of like is true it will return 'Unlike' and if it's false it
+    will return 'Like'.
+
+- to bind an action to an event, here's an example:
+    <span onClick={this.toggle.bind(this)}> ...
+    which will bind toggle action to onClick event.
+
+- it's better to use .setState after initialization, because of two reason:
+    * first using .setState it will automatically call render as we're updating
+    the component.
+    * second using .setState we will only specify changes that we want and the
+    rest is handled by React, however if we use .state = notation,we may get
+    issues with updating all the states of the component.
+
+- .preventDefault() helps us to not reload the page when submitting the form.
+
+- Service-Oriented Architecture
+    * all teams must expose their data and functionality through service
+    interfaces.
+    * the only communication allowed is via service interface calls over the
+    network.
+
+- Microservice Architecture
+    * a monolithic application puts all its functionality into a single process.
+    and scales by replicating the monolith on multiple servers.
+
+    * a microservice architecture puts each element of functionality into a
+    seperate service, and scales by distributing these services across servers,
+    replicating as needed.
+
+- REST
+    * define a set of rules and conventions
+    * REpresentational State Transfer
+    * collection of resources on which specific operations can be performed.
+    * URI names resources, not pages or actions.
+    * self-contained - which resource, what to do with it, server doesn't need
+    to maintain state between requests.
+
+- API
+    * is a standard from of accessing resources on the web which is called
+    an Application Programming Interface.
+    * an API is a URL or a set of URLs that return pure data to request.
+    * APIs can be used to incorporate data and functionality from other sources
+    in your webapp.
+
+- Getting Started
+    * request a developer key from the API provider.
+    * you can test the API and what the returned data looks like.
+
+- Getting Data
+    * getting data from the API using jQuery AJAX: in this example we get data
+    from a news agency:
+        componentDidMount() {
+          var url=
+            'api-url' + 'api-key';
+
+          $.getJSON(url, function(data, status) {
+            return this.setState({articles: this.parse(data)});
+          }.bind(this));
+        }
+
+- Node.js
+    * is a free, open-source platform and framework built in JavaScript.
+    * includes suite of tools that allows user to prepare JavaScript applications
+    for deployment.
+    * utilizes Node.js Package Manager (npm) to install programs and manage
+    dependencies.
+
+- Benefits of Node.js
+    * we can separate components into different files to make code more modular.
+    * it allows us to incorporate dependencies of the code within current file.
+        var React = require('react');
+        var ReactDOM = require('react-dom');
+
+        import MyComponent from './MyComponent.js';
+
+- Node.js Installation
+    * download and install the Node and packages from nodejs.org
+    * be sure to update the version of npm to the most recent using the following
+    command:
+        npm install npm -g
+
+- Considerations for creating a React app
+    * including dependencies(React, ReactDOM, libraries).
+    * making code compatible with browsers that only support older versions of
+    JavaScript.
+    * transforming JSX into JavaScript.
+    * Modularity: implementing modules in separate files, bundling them as
+    dependencies.
+    * we can use the command below to ease the setup process:
+        npm install -g create-react-app
+    * to create new React app, run the following command in the desired parent
+    directory of new application:
+        create-react-app my-app
+
+- Anatomy of a React app
+    * package.json: information about app, lists of dependencies, shortcuts for
+    scripts.
+    * public: directory containing HTML files, images, other static web content.
+    * src: directory containing JavaScript and CSS files.
+
+- Starting app
+    * start the default app as follows:
+        cd my-app
+        npm start
+    * this will start a web server that listens for incoming HTTP requests on
+    port 3000 on your computer.
+    * you can access the webserver by going to http://localhost:3000/
+
+- Incorporating components
+    * we can now put all our JS files in src/ directory and include the followings
+    in our components:
+        var React = require('react');
+        .
+        .
+        .
+        export default Component-name;
+    * App.js is the main file and component of the app.
+
+- Testing React Apps
+    * Mocha - widely used test runner used to run JS tests.
+    * Chai - assertion library for behavior driven testing.
+    * Enzyme - testing utility for React for manipulating and inspiring React
+    component state and output.
+
+- Getting started - installation
+    * to include Enzyme and Chai as dependencies, run the following command:
+        npm install --save-dev enzyme react-test-renderer chai
+    * we will create an additional folder within 'src' named 'tests' in which we
+    include all testing scripts.
+    * all test files must be in the form of *.test.js
+
+- Getting started
+    * Node.js should create a default App.test.js or you can write your own.
+    * include libraries necessary for testing
+        - import React and ReactDOM for component manipulation:
+            import React from 'react';
+            import ReactDOM from 'react-dom';
+        - import keywords from Enzyme:
+            import { mount, shallow } from 'enzyme';
+        - import keywords from Chai:
+            import {expect} from 'chai';
+
+- Running Tests
+    * to run tests, navigate to the project within the terminal and run the
+    following command:
+        npm run test
+    * 

@@ -197,4 +197,150 @@ returns true or false.
         JSON.parse(json-string)
     * all values must be a string, number, array, boolean, null, or another
     valid json object.
-    
+    * a great application of JSON usage is to store JSON strings in local
+    browser storage.
+        localStorage.JSON-file = JSON.stringify(object-name);
+        ..
+        ..
+        object-name = JSON.parse(localStorage.JSON-file);
+    * you can also use JSON data to communicate with a server or API.
+
+- localStorage
+    * LocalStorage is a type of web storage that allows Javascript websites and
+    apps to store and access data right in the browser with no expiration date.
+    This means the data stored in the browser will persist even after the browser
+    window has been closed.
+
+    * limitations:
+        - Do not store sensitive user information in localStorage
+        - It is not a substitute for a server based database as information is
+        only stored on the browser
+        - LocalStorage is limited to 5MB across all major browsers
+        - LocalStorage is quite insecure as it has no form of data protection
+        and can be accessed by any code on your web page.
+        - LocalStorage is synchronous. Meaning each operation called would only
+        execute one after the other.
+
+    *LocalStorage as a type of web storage is an HTML5 specification. It is
+    supported by major browsers including IE8. To be sure the browser supports
+    LocalStorage, you can check using the following snippet:
+        if (typeof(Storage) !== "undefined") {
+        // Code for localStorage
+        } else {
+        // No web storage Support.
+        }
+
+    * methods of using localStorage:
+        - setItem(): Add key and value to LocalStorage
+        - getItem(): Retrieve a value by the key from LocalStorage
+        - removeItem(): Remove an item by key from LocalStorage
+        - clear(): Clear all LocalStorage
+        - key(): Passed a number to retrieve nth key of a LocalStorage
+
+- we use object.addEventListener('event-strain', function) to define and event
+driven routine.
+
+- Event-Driven programming is when a program's behavior is based on events.
+- in web programming these events are usually user actions.
+- different events/actions invoke different "callback-functions" which handle
+that event/action.
+- event-driven programming is a form of asynchronous programming.
+- in synchronous programming:
+    * we're expecting a user input.
+    * we're continuously re-checking a text field until the user has put in
+    the required information.
+    * we run some code on user's input.
+
+- in asynchronous programming:
+    * we're expecting a user input.
+    * we tell the browser to let the program know whenever th user has put in the
+    required information.
+    * we possibly run other code until the browser notifies us.
+    * when the user has put in the information we will run the associated
+    callback function.
+
+- we can use .getElementByClassName('class-name') to retrieve elements and work
+with them.
+- "click", "mouseover", "mouseout", "keyup" are event-strains.
+- for example in this code, we register a keypress as an event and act upon it:
+    function nameHandler(e) { // e stands for event
+      if (e.keyCode == 13) { // 13 is the Enter key
+          ..
+      }
+    }
+
+- .textTransform = 'text-mode' .e.g 'capitalize' is used to change the style of
+the text.
+
+- to use jQuery we download the file and insert it into the html head element:
+    <script src="jQueryfile.js"></script>
+  or we can use a Content Delivery Network (CDN):
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+- jQuery
+    * $ is used to select DOM elements for manipulation, along with basic CSS
+    element syntax.
+    * $("*") --> selects all the elements.
+    * $(this) --> selects the current element.
+    * $("div") --> selects all <div> elements.
+    * $(".title") --> selects all elements with class="title"
+    * $("#name") --> selects the element with id="name"
+    * the general format is:
+        $(selector).action(arguments)
+    * actions include "html", "append", "addClass", "hide()", "show()"
+    * to add an event listener to an element, the general format is:
+        $(selector).event(callback)
+    * .val() as an action can be used to get the value of the html element.
+    * .css() as an action helps with styling elements on the go.
+    * .mouseenter()  is the event for mouse is hovering over an element.
+    * .mouseleave() is when the mouse goes away.
+    * .hover() is the combination of "mouseenter" and "mouseleave" which allows
+    you to define two functions, first is for mouseenetr and second is for
+    mouseleave.
+    * the .on() event allows us to bind multiple callback functions to a single
+    selected item by specifying an object that lists all those different functions
+    for different events.
+    * .find() action is used to select elements within the selected elements.
+    * $(someNodes).find(selector) will search 'someNodes' children for selector.
+    * $ selectors can be chained:
+        - $("div.class") --> selects all the div elements with class property.
+        - $("div, .class") --> selects all the div elements and elements that
+        have .class property.
+    * : can be used to specify element properties
+        - $("p:hidden") selects all <p> elements that are visually hidden.
+    * all CSS selectors work in jQuery.
+    * list of events for mouse:
+        - click
+        - dblclick
+        - mousedown
+        - mouseup
+        - hover
+    * list of keyboard events:
+        - keydown
+        - keyup
+        - keypress
+    * list of form events:
+        - focus
+        - blur
+        - change
+        - reset
+        - submit
+    * Window/Element events:
+        - load
+        - resize
+        - scroll
+        - unload
+    * we can use attributes for selection using this notation:
+        $("selector[attribute-name=attribute-value]")
+    * we can use types for selection using this notation:
+        $("selector:type[attribute-name=attribute-value]")
+    * we can inspect properties of elements such as a radio button being checked
+    like this:
+        $("input:radio").prop('checked') which returns a true or false.
+    * list.indexOf(value) gives us the index of the element that matches the
+    value.
+    * list.splice(index, number of elements to remove) removes elements from the
+    list.
+    * .addClass('class-name') and .removeClass('class-name') are used to add or
+    remove a class from a html element.

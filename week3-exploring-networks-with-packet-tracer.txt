@@ -1,0 +1,18 @@
+- we can use following commands, to enable configuration on a router or a switch.
+    * >(hostname)ena
+- then we use 'conf t' command. to enter config mode. (hostname)(config)#
+    * (hostname)#conf t
+- to change the hostname of a switch we use 'hostname <desired-name>'
+    * (hostname)(config)#hostname <desired-hostname>
+- then we navigate out of config mode using Ctrl+Z to save the configurations.
+    * (hostname)#copy run startup-config
+- to configure ip address of router's interfaces we first navigate to config mode. and then we
+configure each interface.
+    * (hostname)(config)#int <interface-name>
+    for example: R1(config)#int g0/0
+    * (hostname)(config-if)#ip address <desired-address> <desired-subnet-mask>
+    for example: R1(config-if)#ip address 192.168.1.1 255.255.255.0
+- then we use the command below to bring the interface up.
+    * (hostname)(config-if)#no shutdown
+- we can also use the following to save configurations.
+    * (hostname)#copy run start

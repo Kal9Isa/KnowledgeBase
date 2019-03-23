@@ -8,14 +8,21 @@
  var ope2 = '';
  var opt = '';
 
+//handling the click event
+
 function handler (event) {
+    // Track the HTML content of the clicked button
     var target = event.target.innerHTML;
+    
+    // When Clear button is used
     if (target === 'C')   {
         displayField.val('');
         ope1 = '';
         ope2 = '';
         opt = '';
     }
+    
+    // When equals button is pressed which is supposed to be ignored if there's no operand nor an operator.
     else if (target === '=') {
         if (ope1 === '') {
             displayField.val('');
@@ -33,8 +40,11 @@ function handler (event) {
             opt = '';
         }
     }
+    
+    // When the clicked button is an operator + - / *, which pressing operators repeatedly is supposed
+    // to update the operator to the latest entry, and pressing an operator after an operation is 
+    // designed to keep the operation going.
     else if (isNaN(target)) {
-        //when using an Operator or =
         if (ope1 === '') {
             displayField.val('');
         }
@@ -49,6 +59,8 @@ function handler (event) {
             displayField.val(target);
         }
     }
+    
+    // When entering numbers by pressing buttons
     else {
         if (ope1 === '' || opt === '') {
             ope1 = ope1 + target;
@@ -61,13 +73,13 @@ function handler (event) {
     }
 }
 
+// Handling operations with given operands
 function operatorHandler (num1, num2, op) {
     var result = 0;
     var a = Number(num1);
     var b = Number(num2);
     if (op === '+') {
         result = a + b;
-        return result.toString();
     }
     else if (op === '-') {
         if (a > b) {
@@ -76,20 +88,20 @@ function operatorHandler (num1, num2, op) {
         else {
             result = (-1) * (b - a);
         }
-        return result.toString();
     }
     else if (op === '*') {
         result = a * b;
-        return result.toString();
     }
     else if (op === '/') {
         if (b !== 0) {
             result = a / b;
-            return result.toString();
         }
         else {
             return 'infinity';
         }
     }
+    return result.toString();
 }
+
+// Event listener for <td> element which wraps all the buttons
 $('td').click(handler);

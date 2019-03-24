@@ -1,0 +1,148 @@
+Network Media
+    - Twisted Pair cable: most common media used in Ethernet Networking is an Unshielded Twisted 
+    Pair (UTP) cable which is made up of a series of wires (8 wires), that are arranged in pairs 
+    to reduce interference. and each pair is color coded so we have the same pattern on either end of 
+    the cable. typically in each pair, one of the wires is a solid color and its partner is the 
+    same color striped onto a whie background.
+    most common connector used in networking,on each end of the cable which connects devices 
+    to the cable, is a RJ45 connector.
+    
+    - Coaxial copper cabling: it's the most commonly used cable for TVs and cameras or satellite
+    communication systems and has two different connectors: BNC, screw on F type. the rigid core 
+    which is made up of copper/aluminum conducts the signal, it's also insulated by a plastic layer 
+    and a braided metal mesh on top to deal with electromagnetic interference of the enviornment and 
+    a protective jacket. it is used as a high-frequency trasnmission line to carry high-frequency 
+    or broadband signals. also coax provides improved shielding compared to UTP and therefore can 
+    carry more data.
+    - https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/nioUXudLEeaeXwpb0-XDnA_c733233b7be0d97d947ff86c74906ef6_2.3.3.1.gif?expiry=1553558400000&hmac=x9YUW3-K7IZUBCOXevdnGdujnlJ65RUQev-5RpUswMM
+    
+    
+    - Fiber optic cable: is made either of glass/plastic and it has a solid core and is surronded 
+    by second layer of glass/plastic to provide the reflective surface to carry patterns of light.
+    it's usually used for long distances. either lasers or LEDs are used to generate light pulses.
+    the jacket is usually made up of PVC, the core is made of silica or glass.
+    - https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/HCxhy-jJEeaNiQ60ANFaMA_68a0469fe5efd04aacf8d5aa1264551a_2332.png?expiry=1553558400000&hmac=TEH3BRgJmTdTNhxgHmX9EjwzWgVKsRacDGTnCEK2jZg
+    
+    
+    - The 4 main criteria for choosing network meida are:
+        * The distance the media can successfully carry a signal.
+        * The enviornment in which the media is to be installed.
+        * The amount of data and the speed at which it must be transmited.
+        * The cost of the media installation.
+    - https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/GDGQwNsQEea3zgrd-Q7NiA_624cd22235af3049d96eeadf546c2195_2311.JPG?expiry=1553558400000&hmac=U5TaHPr25I9aCG06DYQgmpVgI2Xdw5fiw7iMSQOIHGw
+    
+    
+Twisted-Pair Cables
+    - Data transmission over copper cable is sensitive to electromagnetic interference (EMI),
+    which can reduce the data throughput rate that a cable can provide. 
+    
+    - Crosstalk is a source of interference which occurs when cables are bundled together for 
+    long lengths. The electrical impulses from one cable can cross over to an adjacent cable.
+    this occurs frequently when cables are improperly installed and terminated.
+    
+    - there are two common types of TP:
+        * Unshielded Twisted Pair (UTP)
+        * Shielded cables (STP)
+    
+    - the most common number of pairs in a TP cable is 4.
+    
+    - the most commonly used categories include 3,5,5e and 6.
+    
+    - https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/WL6r7OikEea5-BKh39zqpA_c26fc22188ca5d7fb12195b7808a9efe_2322_2.JPG?expiry=1553558400000&hmac=h8bzpc_NZMr9_26jz1rM4LS_Uu6kKb1ff_VlphaVkss
+    
+    - when there are electrical enviornments in which EMI and Radio Frequency Interference (RFI) 
+    are so strong that shielding is a requirement to make communication possible, we use STP.
+    
+    - two common connectors are RJ45 (used commonly with computers) and RJ11 (used with phones 
+    and fax machines).
+    
+    - https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/cO3r4eikEeafRBIyl6pTvg_d989bd7be328c1a9c9c350e8f0675e1f_2322_3.JPG?expiry=1553558400000&hmac=sOGNSo_q3NqbDnvBwh-ulrtV3rhYTLiWmgvl6BV5KU4
+    
+
+Wiring Schemes of UTP
+    - the color coding of the wire pairs is determined by the type of standard that is used to make 
+    the cable. 
+    
+    - the TIA/EIA organization defines two different patterns for Ethernet installations called:
+        * T568A
+            P3 P3 P2 P1 P1 P2 P4 P4
+            GW G OW  B BW  O BrW Br
+            1  2  3  4  5  6  7  8
+            
+        * T568B
+            P2 P2 P3 P1 P1 P3 P4 P4
+            OW O GW  B  BW G BrW Br
+            1  2  3  4  5  6  7  8
+        
+        * https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/0JdEL9sREeasvA5WOAljNg_ab5fc08a8fcdd6369a826d8ddae85764_2341.JPG?expiry=1553558400000&hmac=LmBj176haciP4L52kPOpqVQ08NRxkUcuZP0NHYm-l-E
+        
+    that each scheme defines the pinouts or order of wire connections on the end of the cable.
+    
+    - it is important that the same wiring should be used for every termination in the project.
+  
+
+Sending Data on UTP Cabling
+    - specific pins on the connectors are associated with a transmit function and a receive 
+    function. the interfaces on each device are designed to transmit and receive data on 
+    designated wires within the cable.
+    
+    - when two devices are directly connected using an UTP cable, it is important that the 
+    transmit function and the receive function on each end of the cable are reversed.
+    
+    - two devices that use different wires for transmit and receive are known as "Unlike Devices".
+    they require a "Straight-through" cable to exchange data. straight-through cables have same 
+    color patterns on both ends of the cable.
+    
+    - devicess that are directly connected and use the same pins for transmit and receive are
+    known as "Like Devices". they require the use of "Crossover" cable in order to reverse the 
+    transmit function and receive function so that devices can exchange data.
+    
+    - https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/Ed80HedMEea0PA6g5Mr3FA_5ed3595c8e0b11752a449df3f5b0111b_2.3.4.2.gif?expiry=1553558400000&hmac=4MDULo2LV0G_E1WfNefELI67PvMutPqSAp89hwS_Dfc
+    
+    
+What Does Peer-to-Peer (P2P) mean?
+    - if hosts runs both server applications and client applications in a network, the network 
+    is of P2P type.
+    
+    - https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/EzEcPeAGEeaTHw5EUcEGbA_ae3277852e8aefa04711984ceec796b4_1311.JPG?expiry=1553558400000&hmac=Dxl40KFvnVReyIDL83HG710osmbGrsUnGEIwVj8HIOs
+    
+    
+Ping Command
+    - the ping utility tests end-to-end connectivity between the IP address of the source of the 
+    message and the IP address of its destination. it measures the time that it takes test messages 
+    to make a round trip from the source to destination and whether or not the transmission is 
+    successful.
+    
+    - the format of the ping command si universally implemented:
+         ping <domain-name>/<IP address>
+         
+    - the name "Ping" refers to Sonar systems and when they ping whenever sth is detected.
+    
+
+Following the Path
+    - the "Traceroute" utility traces the route a message takes from its source to the destination. 
+    each individual network through which the message travels is referred to as a "Hop". Traceroute 
+    displays each hop along the way and the time it takes for the message to get to the network and
+    back.
+    
+    - if a problem occurs, use the output of the traceroute utility to help determine where a message 
+    was lost or delayed.
+    
+    - to use traceroute in different OSes:
+        * Windows: >tracert <domain-name>/<IP address>
+        * Mac: $traceroute <domain-name>/<IP address>
+        * Linux: $traceroute <domain-name>/<IP address>
+        
+    - https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/DtPnUeAHEeaDChK5fXqe9g_902c82459ca25131f6ae60bb2817ffb9_1322.JPG?expiry=1553558400000&hmac=jSgiOvVfGK9LGsPzpR0UgTR262T1LerOlju6AiW2lLw
+    
+    - 
+
+
+
+
+
+
+
+
+
+

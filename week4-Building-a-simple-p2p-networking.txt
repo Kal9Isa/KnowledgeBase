@@ -135,7 +135,12 @@ Following the Path
         
     - https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/DtPnUeAHEeaDChK5fXqe9g_902c82459ca25131f6ae60bb2817ffb9_1322.JPG?expiry=1553558400000&hmac=jSgiOvVfGK9LGsPzpR0UgTR262T1LerOlju6AiW2lLw
     
-    - 
+    - "Default Gatewway"s are always routing devices.
+    
+    - traceroute only reports back hops that the message has gone to, meaning if the packet gets lost 
+    at a hop, traceroute will stop at that hop. 
+    
+    
 
 
 

@@ -140,6 +140,11 @@ Following the Path
     - traceroute only reports back hops that the message has gone to, meaning if the packet gets lost 
     at a hop, traceroute will stop at that hop. 
     
+    - to see the IP address of the source we use the following command:
+        * Windows: >ipconfig
+        * Mac: $ ipconfig getifaddr en0/en1 --> <interface>
+        * Linux: $ ifconfig |grep inet --> <interface>
+        
     
 
 

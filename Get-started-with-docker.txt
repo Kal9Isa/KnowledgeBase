@@ -42,36 +42,7 @@ Part 1: Orientation and Setup
     Prepare Your Docker Container
         Install a maintained version of Docker Community Edition (CE) or Enterprise 
         Edition (EE) on a supported platform.
-        
-        Test Docker version
-            1. Run `docker --version` and ensure that you have a supported version 
-            of Dcoker:
-
-                $docker --version
-
-                Docker version 17.12.0-ce, build c97c6d6
-            
-            2. Run `docker info` or (`docker version` without `--`) to view 
-            even more details about your docker installation:
-                
-                $docker info
-
-                Containers: 0
-                 Running: 0
-                 Paused: 0
-                 Stopped: 0
-                Images: 0
-                Server Version: 17.12.0-ce
-                Storage Driver: overlay2
-                ...
-                
-            3. List the images that was downloaded to your machine:
-                `docker image ls`
                
-            4. To list all the containers (even those that are still running) 
-            use the following command:
-                `docker container ls --all`
-        
     Recap and Cheat Sheet
         
         ## List Docker CLI commands
@@ -137,31 +108,6 @@ Part 2: Containers
         that, you can expect that the build of your app defined in this Dockerfile behaves exactly the 
         same wherever it runs.
 
-    Dockerfile
-        Create an empty directory. Change directories (cd) into the new directory, create a file called 
-        Dockerfile, copy-and-paste the following content into that file, and save it. Take note of the 
-        comments that explain each statement in your new Dockerfile.
-        
-            # Use an official Python runtime as a parent image
-            FROM python:2.7-slim
-
-            # Set the working directory to /app
-            WORKDIR /app
-
-            # Copy the current directory contents into the container at /app
-            ADD . /app
-
-            # Install any needed packages specified in requirements.txt
-            RUN pip install --trusted-host pypi.python.org -r requirements.txt
-
-            # Make port 80 available to the world outside this container
-            EXPOSE 80
-
-            # Define environment variable
-            ENV NAME World
-
-            # Run app.py when the container launches
-            CMD ["python", "app.py"]      
             
         - Are you behind a proxy server?
             Proxy servers can block connections to your web app once it’s up and running. If you are 
@@ -173,126 +119,21 @@ Part 2: Containers
                 ENV https_proxy host:port
 
             Add these lines before the call to `pip` so that installation succeeds.
-            
-        This Dockerfile refers to a couple of files we haven’t created yet, namely app.py and requirements.txt. 
-        Let’s create those next.
-    
-    The App Itself
-        Create two more files, requirements.txt and app.py, and put them in the same folder with the Dockerfile. 
-        This completes our app, which as you can see is quite simple. When the above Dockerfile is built into 
-        an image, app.py and requirements.txt is present because of that Dockerfile’s `ADD` command, and the 
-        output from app.py is accessible over HTTP thanks to the `EXPOSE` command.
-        
-            requirements.txt
-                
-                Flask
-                Redis
-                
-            app.py
-                
-                from flask import Flask
-                from redis import Redis, RedisError
-                import os
-                import socket
-
-                # Connect to Redis
-                redis = Redis(host="redis", db=0, socket_connect_timeout=2, socket_timeout=2)
-
-                app = Flask(__name__)
-
-                @app.route("/")
-                def hello():
-                    try:
-                        visits = redis.incr("counter")
-                    except RedisError:
-                        visits = "<i>cannot connect to Redis, counter disabled</i>"
-
-                    html = "<h3>Hello {name}!</h3>" \
-                           "<b>Hostname:</b> {hostname}<br/>" \
-                           "<b>Visits:</b> {visits}"
-                    return html.format(name=os.getenv("NAME", "world"), hostname=socket.gethostname(), visits=visits)
-
-                if __name__ == "__main__":
-                    app.run(host='0.0.0.0', port=80)
-                
-        Now we see that `pip install -r requirements.txt` installs the Flask and Redis libraries 
-        for Python, and the app prints the environment variable NAME, as well as the output of 
-        a call to socket.gethostname(). Finally, because Redis isn’t running (as we’ve only 
-        installed the Python library, and not Redis itself), we should expect that the attempt 
-        to use it here fails and produces the error message.
+   
         
         - Accessing the name of the host when inside a container retrieves the container ID, which 
         is like the process ID for a running executable.
-        
-        That’s it! You don’t need Python or anything in requirements.txt on your system, nor does 
-        building or running this image install them on your system. It doesn’t seem like you’ve 
-        really set up an environment with Python and Flask, but you have.
-        
-    Build the App
-        We are ready to build the app. Make sure you are still at the top level of your new directory. 
-        Here’s what `ls` should show:
-        
-            $ls
-            Dockerfile		app.py			requirements.txt
-        
-        Now run the `build` command. This creates a Docker image, which we’re going to tag using `-t` 
-        so it has a friendly name:
-        
-            $docker build -t friendlyhello .
-            
-        Where is your built image? It’s in your machine’s local Docker image registry:
-        
-            $docker image ls
-            
-    Run the App
-        Run the app, mapping your machine’s port 4000 to the container’s published port 80 using `-p`:
-        
-            $docker run -p 4000:80 friendlyhello
-            
-        You should see a message that Python is serving your app at `http://0.0.0.0:80`. But that 
-        message is coming from inside the container, which doesn’t know you mapped port 80 of that 
-        container to 4000, making the correct URL `http://localhost:4000`.
-        
-        Go to that URL in a web browser to see the display content served up on a web page.
-        
+
         - If you are using Docker Toolbox on Windows 7, use the Docker Machine IP instead of localhost. 
         For example, `http://192.168.99.100:4000/`. To find the IP address, use the command `docker-machine ip`.
         
         You can also use the `curl` command in a shell to view the same content.
-            
-            $ curl http://localhost:4000
-            
-            <h3>Hello World!</h3><b>Hostname:</b> 8fc990912a14<br/><b>Visits:</b> <i>cannot connect to Redis, counter disabled</i>
-            
-        This port remapping of 4000:80 is to demonstrate the difference between what you `EXPOSE` within the 
-        Dockerfile, and what you publish using `docker run -p`. In later steps, we just map port 80 on the 
-        host to port 80 in the container and use `http://localhost`.
-        
-        Hit `CTRL+C` in your terminal to quit.
-        
+
         - On Windows, explicitly stop the container
             On Windows systems, `CTRL+C` does not stop the container. So, first type `CTRL+C` to get the 
             prompt back (or open another shell), then type `docker container ls` to list the running containers, 
             followed by `docker container stop <Container NAME or ID>` to stop the container. Otherwise, you 
             get an error response from the daemon when you try to re-run the container in the next step.
-        
-        Now let’s run the app in the background, in detached mode:
-        
-            $docker run -d -p 4000:80 friendlyhello
-            
-        You get the long container ID for your app and then are kicked back to your terminal. Your container 
-        is running in the background. You can also see the abbreviated container ID with `docker container ls` 
-        (and both work interchangeably when running commands):
-        
-            $ docker container ls
-            CONTAINER ID        IMAGE               COMMAND             CREATED
-            1fa4ab2cf395        friendlyhello       "python app.py"     28 seconds ago
-
-        Notice that CONTAINER ID matches what’s on `http://localhost:4000`.
-
-        Now use docker `container stop` to end the process, using the CONTAINER ID, like so:
-        
-            $docker container stop 1fa4ab2cf395
             
     Share Your Image
         To demonstrate the portability of what we just created, let’s upload our built image and run it 
@@ -323,21 +164,7 @@ Part 2: Containers
             Now, put it all together to tag the image. Run `docker tag image` with your username, repository, 
             and tag names so that the image uploads to your desired destination. The syntax of the command is:
             
-                $docker tag image username/repository:tag
-                
-            For example:
-            
-                $docker tag friendlyhello john/get-started/part2
-                
-            Run `docker image ls` to see your newly tagged image.
-            
-                $ docker image ls
-
-                REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
-                friendlyhello            latest              d9e555c53008        3 minutes ago       195MB
-                john/get-started         part2               d9e555c53008        3 minutes ago       195MB
-                python                   2.7-slim            1c7128a655f6        5 days ago          183MB
-                ...
+                $docker tag image username/repository:tag       
 
         Publish the Image
             Upload your tagged image to the repository:
@@ -347,11 +174,7 @@ Part 2: Containers
             Once complete, the results of this upload are publicly available. If you log in to Docker Hub, 
             you see the new image there, with its pull command.
             
-        Pull and Run the Image From the Remote Repository
-            From now on, you can use `docker run` and run your app on any machine with this command:
-            
-                $docker run -p 4000:80 username:repository:tag
-                
+        Pull and Run the Image From the Remote Repository                         
             If the image isn’t available locally on the machine, Docker pulls it from the repository.
             
             No matter where `docker run` executes, it pulls your image, along with Python and all 
@@ -384,8 +207,119 @@ Part 2: Containers
                 docker push username/repository:tag            # Upload tagged image to registry
                 docker run username/repository:tag                   # Run image from a registry
                 
+Part 3: Services
 
+    Prerequisite
+        Get Docker Compose. On Docker for Mac and Docker for Windows it’s pre-installed, so you’re 
+        good-to-go. On Linux systems you need to install it directly. On pre Windows 10 systems 
+        without Hyper-V, use Docker Toolbox.
         
-        
+        Compose is a tool for defining and running multi-container Docker applications. With Compose, 
+        you use a YAML file to configure your application’s services. Then, with a single command, 
+        you create and start all the services from your configuration.
 
+        Compose works in all environments: production, staging, development, testing, as well as CI 
+        workflows. You can learn more about each case in Common Use Cases.
+
+        Using Compose is basically a three-step process:
+
+            * Define your app’s environment with a Dockerfile so it can be reproduced anywhere.
+
+            * Define the services that make up your app in docker-compose.yml so they can be run 
+            together in an isolated environment.
+
+            * Run docker-compose up and Compose starts and runs your entire app.
+        
+        Common Use Cases:
+            * Development enviornments
+                When you’re developing software, the ability to run an application in an isolated 
+                environment and interact with it is crucial. The Compose command line tool can be 
+                used to create the environment and interact with it.
+
+                The Compose file provides a way to document and configure all of the application’s 
+                service dependencies (databases, queues, caches, web service APIs, etc). Using the 
+                Compose command line tool you can create and start one or more containers for each 
+                dependency with a single command (`docker-compose up`).
+
+            * Automated testing enviornments
+                An important part of any Continuous Deployment or Continuous Integration process is 
+                the automated test suite. Automated end-to-end testing requires an environment in which 
+                to run tests. Compose provides a convenient way to create and destroy isolated testing 
+                environments for your test suite. By defining the full environment in a Compose file, 
+                you can create and destroy these environments in just a few commands:
+
+                    $ docker-compose up -d
+                    $ ./run_tests
+                    $ docker-compose down
+            
+            * Single host deployment
+                You can use Compose to deploy to a "remote Docker Engine". The Docker Engine may be a 
+                single instance provisioned with Docker Machine or an entire "Docker Swarm" cluster.   
+                
+    Introduction
+        In this part we scale our application and enable load-balancing.
+        
+    About Services
+        In a distributed application, different pieces of the app are called “services.”
+
+        Services are really just “containers in production.” A service only runs one image, but it codifies 
+        the way that image runs—what ports it should use, how many replicas of the container should run so 
+        the service has the capacity it needs, and so on. Scaling a service changes the number of container 
+        instances running that piece of software, assigning more computing resources to the service in the 
+        process.
+
+        Luckily it’s very easy to define, run, and scale services with the Docker platform – just write a 
+        `docker-compose.yml` file.
+    
+    Your first `docker-compose.yml` file
+        a `docker-compose.yml` file is a YAML file that defines how Docker containers 
+        should behave in production.
+
+    Run Your New Load-Balanced App
+        A single container running in a service is called a task. Tasks are given unique IDs that numerically 
+        increment, up to the number of replicas you defined in docker-compose.yml. 
+        
+        - Windows 10 PowerShell should already have `curl` available, if not grab a terminal emulator or 
+        download wget for windows
+        
+    Recap and Cheat Sheet
+        To recap, while typing `docker run` is simple enough, the true implementation of a container in 
+        production is running it as a service. Services codify a container’s behavior in a Compose file, 
+        and this file can be used to scale, limit, and redeploy our app. Changes to the service can be 
+        applied in place, as it runs, using the same command that launched the service: `docker stack deploy`.
+        
+            docker stack ls                                            # List stacks or apps
+            docker stack deploy -c <composefile> <appname>  # Run the specified Compose file
+            docker service ls                 # List running services associated with an app
+            docker service ps <service>                  # List tasks associated with an app
+            docker inspect <task or container>                   # Inspect task or container
+            docker container ls -q                                      # List container IDs
+            docker stack rm <appname>                             # Tear down an application
+            docker swarm leave --force      # Take down a single node swarm from the manager
+            
+Part 4: Swarms
+    Introduction
+        Here in part 4, you deploy this application onto a cluster, running it on multiple machines. 
+        Multi-container, multi-machine applications are made possible by joining multiple machines 
+        into a “Dockerized” cluster called a swarm.
+
+    Understanding Swarm Clusters
+        A "swarm" is a group of machines that are running Docker and joined into a cluster. After that 
+        has happened, you continue to run the Docker commands you’re used to, but now they are executed 
+        on a cluster by a swarm manager. The machines in a swarm can be physical or virtual. After joining 
+        a swarm, they are referred to as "nodes".
+
+        Swarm managers can use several strategies to run containers, such as “emptiest node” – which fills 
+        the least utilized machines with containers. Or “global”, which ensures that each machine gets exactly 
+        one instance of the specified container. You instruct the swarm manager to use these strategies in the 
+        Compose file, just like the one you have already been using.
+
+        Swarm managers are the only machines in a swarm that can execute your commands, or authorize other 
+        machines to join the swarm as "workers". Workers are just there to provide capacity and do not have 
+        the authority to tell any other machine what it can and cannot do.
+
+        Up until now, you have been using Docker in a single-host mode on your local machine. But Docker also 
+        can be switched into swarm mode, and that’s what enables the use of swarms. Enabling swarm mode instantly 
+        makes the current machine a swarm manager. From then on, Docker runs the commands you execute on the 
+        swarm you’re managing, rather than just on the current machine.
         

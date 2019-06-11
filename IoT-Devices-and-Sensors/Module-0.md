@@ -12,7 +12,7 @@
 
 ## **Course Syllabus**
 
-* ![Module 1: Electrical circuits and elecctronics](https://docs.google.com/document/d/1DCB7GZfBuYflzq3iKEDCFKw0qhXx9QXWcTYSxqDYi30/edit?usp=sharing)
+* [Module 1: Electrical circuits and elecctronics](https://docs.google.com/document/d/1DCB7GZfBuYflzq3iKEDCFKw0qhXx9QXWcTYSxqDYi30/edit?usp=sharing)
 
     - Describe how electronic devices fit with IoT, and why they are important.
 

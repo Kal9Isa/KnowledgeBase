@@ -54,7 +54,7 @@
 
     - Design a basic IoT system.
 
-* [* Module 5: Summary and assessment](https://docs.google.com/document/d/11ZPXOLJx3WaFau9LUI3T5Ef1CoPJRNgqiJU5GkUTcKk/edit?usp=sharing)
+* [Module 5: Summary and assessment](https://docs.google.com/document/d/11ZPXOLJx3WaFau9LUI3T5Ef1CoPJRNgqiJU5GkUTcKk/edit?usp=sharing)
 
     - Consider design implications for sensors and devices.
 

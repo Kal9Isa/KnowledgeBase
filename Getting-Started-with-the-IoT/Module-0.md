@@ -3,7 +3,7 @@
 * This course provides students with an introduction to IoT and covers the
 concepts, terms, and the patterns of an IoT solution.
 
-## **[Module 1]()**
+## **[Module 1](https://docs.google.com/document/d/1TZVvr-lZ3TKuPSAKOZpKSuGLy-4TgAx9bD1KgDFOOpA/edit?usp=sharing)**
     
 * The first module focuses on what an IoT solution is and provides an 
 introduction to the industry verticals that are using IoT to achieve 

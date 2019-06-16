@@ -13,7 +13,7 @@ business goals.
         
     - Lab 2: Exploring IoT Business Scenarios
     
-## **[Module 2]()**
+## **[Module 2](https://docs.google.com/document/d/1loaOFnvT7uypfThqKWMiGzS7UJGtrhRHedm0g0Uw42k/edit?usp=sharing)**
 
 * In the second module, students will learn about the architectural 
 components of an IoT solution, both on the device side and in the 

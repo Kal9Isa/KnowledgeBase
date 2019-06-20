@@ -23,7 +23,7 @@ cloud.
         
     - Lab 2: Exloring IoT Security Considerations
     
-## **[Module 3]()**
+## **[Module 3](https://docs.google.com/document/d/1fQQnGF6Fg1slDHBlcCLPrnAqhT_U8aUnWDSTiu2wF34/edit?usp=sharing)**
 
 * The third module covers the steps and approaches for evaluating and 
 implementing IoT in your business.

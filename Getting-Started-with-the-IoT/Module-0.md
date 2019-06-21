@@ -32,7 +32,7 @@ implementing IoT in your business.
         
     - Lab 2: Exploring the Approaches to IoT Business Solutions
         
-## **[Module 4]()**
+## **[Module 4](https://docs.google.com/document/d/1NiMk3NfgZlvpoyBBZLIfdfUxo9BAuO5P0rQkFTxbDlI/edit?usp=sharing)**
 
 * The final module investigates how real-world IoT solutions are being 
 implemented in various industries and describes some of the different

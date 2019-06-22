@@ -12,7 +12,7 @@
 
 ## **Course Syllabus**
 
-### **[Module 1: Networks]()**
+### **[Module 1: Networks](https://docs.google.com/document/d/1BdnMwwh8ctzkuJUV2vgVuVacjQKs3y0hbcaCYAUeC90/edit?usp=sharing)**
 
 * Understand the types of networks and internetworks.
 

@@ -226,3 +226,13 @@ to the default once the device is closed.
         - SEEK_CUR: Starts the offset from the current location of 
         the cursor in the file.
 
+### **Enabling Serial Console**
+
+* To enable serial console, the file `/etc/default/grub` requires 
+some editing. Change the value of `GRUB_CMDLINE_LINUX_DEFAULT` to 
+`console=tty0 console=ttyS0, 9600n8` for systems with a graphics
+card, otherwise go with `console=ttyS0 console=tty0, 9600n8` as 
+terminal gets input from the last entry and shows output on all.
+
+* Make sure to run `update-grub` to update the `/boot/grub/grub.cfg`.
+

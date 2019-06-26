@@ -13,10 +13,10 @@ int main (){
 
     /* Opening the Serial Port */
 
-    system("stty -F /dev/tty0 9600 cs8 -cstopb -parenb");
+    system("stty -F /dev/ttyS0 9600 cs8 -cstopb -parenb");
     /* 9600 baud rate, 8 bits, 1 stop bit, no parity */
 
-    fp = fopen("/dev/tty0", "r");
+    fp = fopen("/dev/ttyS0", "r");
 
     // fd = open("/dev/ttyS0" , O_RDWR | O_NOCTTY | O_NDELAY);    
 
@@ -30,6 +30,9 @@ int main (){
         perror("Error while opening the file. \n");
         exit(EXIT_FAILURE);
     }
+    else
+        printf("Port openned successfully! \n");
+    
     
 
     // if (fd == -1) 
@@ -69,6 +72,5 @@ int main (){
     
     
     return 0;
-    
-    
+   
 }

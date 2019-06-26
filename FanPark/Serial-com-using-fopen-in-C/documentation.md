@@ -148,10 +148,10 @@ to the default once the device is closed.
 
     * Example
 
-        '''C
+        ```c
             printf("Enter a string: ");
             gets(str);
-        '''
+        ```
 
 * The C library function `int system(const char *command)` passes 
   the command or program name specified by command to the host 
@@ -163,9 +163,9 @@ to the default once the device is closed.
 
     * Example
 
-        '''C
+        ```c
             system("ls -l");
-        '''
+        ```
 
 * `fgetc()` is used to obtain input from a file single character 
   at a time. After reading the character, the file pointer is 
@@ -176,10 +176,10 @@ to the default once the device is closed.
 
     * Example
 
-        '''C
+        ```c
             FILE *fp = fopen("test.txt", "r");
             char c = fgetc(fp);
-        '''
+        ```
 
 * For reading and writing to a text file, we use the functions 
   `fprintf` and `fscanf`, which are the file versions of `printf` 
@@ -189,7 +189,7 @@ to the default once the device is closed.
     writing to a file on the disk respectively in case of binary 
     files.
 
-        '''C
+        ```c
             struct threeNum num;
             FILE *fptr;
 
@@ -198,14 +198,14 @@ to the default once the device is closed.
 
             fread(&num, sizeof(struct threeNum), 1, fptr);
             // fread(address_data, size_data, number_data, pointer to the file);
-        '''
+        ```
 
 * `fseek()` function, seeks the cursor to the given record in the
   file.
 
     * Example
 
-        '''C
+        ```c
             struct threeNum num;
             FILE *fptr;
 
@@ -214,17 +214,15 @@ to the default once the device is closed.
             // 1. Pointer to the file
             // 2. Position of the record to be found
             // 3. The location where the offset starts
-        '''
+        ```
 
     * Different Whence in fseek:
 
-        - SEEK_SET: Starts the offset from the beginning of the 
-        file.
+        - SEEK_SET: Starts the offset from the beginning of the file.
 
         - SEEK_END: Starts the offset from the end of the file.
 
-        - SEEK_CUR: Starts the offset from the current location of 
-        the cursor in the file.
+        - SEEK_CUR: Starts the offset from the current location of the cursor in the file.
 
 ### **Enabling Serial Console**
 

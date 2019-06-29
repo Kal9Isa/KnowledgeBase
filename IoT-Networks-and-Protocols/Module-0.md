@@ -25,7 +25,7 @@
 * Identify and apply the correct types of mobile wireless technologies for a given application.
 
 
-### **[Module 2: Protocols, Standards, and Layered Network Models]()**
+### **[Module 2: Protocols, Standards, and Layered Network Models](https://docs.google.com/document/d/1013snELvmhvwrgcRXDNWGCvutDj87Bag8C76gF0JYS4/edit?usp=sharing)**
 
 * Understand what standards and protocols are.
 

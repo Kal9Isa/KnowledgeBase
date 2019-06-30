@@ -45,7 +45,7 @@
 * Analyse examples of IoT protocols in a project.
 
 
-### **[Module 4: Designing and Drawing an IoT Network]()**
+### **[Module 4: Designing and Drawing an IoT Network](https://docs.google.com/document/d/1jhQgtBlGkj_uLasw6jdmhys40YGg-K0EfoK57VkR9a0/edit?usp=sharing)**
 
 * Graphically represent IoT physical networks.
 

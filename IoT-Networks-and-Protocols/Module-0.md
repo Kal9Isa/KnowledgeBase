@@ -54,6 +54,6 @@
 * Apply a basic IoT network design to a practical project.
 
 
-### **[Module 5: Summary and Assessment]()**
+### **[Module 5: Summary and Assessment](https://docs.google.com/document/d/1jKggDEiBhOHNe8Yp_2PeGkg5rQQYH1e0kPDqxCHY0A4/edit?usp=sharing)**
 
 * Apply the theories and methodologies to a design.

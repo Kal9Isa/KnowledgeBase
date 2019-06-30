@@ -36,7 +36,7 @@
 * Understand the fundamentals of routing.
 
 
-### **[Module 3: IoT Protocols]()**
+### **[Module 3: IoT Protocols](https://docs.google.com/document/d/1L7DKTInMKrRH_bwFTQ6vDIMe7WVv4X0wqi7GUbWLt3g/edit?usp=sharing)**
 
 * Analyse, compare and contrast IoT protocols.
 

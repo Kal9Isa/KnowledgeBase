@@ -139,7 +139,12 @@ FILE-pointer directly.
 * One things is that most serial drivers will reset the settings
 to the default once the device is closed.
 
-### **C Methods Encountered**
+* Canonical mode is a fancy way of saying get data until an end of 
+data of some sort occurs. Great for files, not so great for hardware. 
+Turning canonical mode off means that data will be received a byte at a 
+time or a timeout occurs 
+
+## **C Methods Encountered**
 
 * The C library function `char *gets(char *str)` reads a line from 
   stdin and stores it into the string pointed to by str. It stops 

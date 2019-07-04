@@ -261,3 +261,6 @@ terminal gets input from the last entry and shows output on all.
         dmesg | grep tty
     ```
     
+### **Misc**
+
+* We need a USB bridge to connect to PCs together.

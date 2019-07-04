@@ -228,6 +228,21 @@ time or a timeout occurs
         - SEEK_END: Starts the offset from the end of the file.
 
         - SEEK_CUR: Starts the offset from the current location of the cursor in the file.
+        
+* The C library  function `int fputs(const *str, FILE *stream)` wirtes a string to the specified 
+  stream up to but not including the null character.
+
+    * Example
+    
+        ```c
+            FILE *fp
+            
+            fp = fopen("file.txt", "w+");
+            
+            fputs("This is a string", fp);
+        ```
+        
+    * Return Value: Returns a non-negative value, or else on error it returns EOF.
 
 ### **Enabling Serial Console**
 

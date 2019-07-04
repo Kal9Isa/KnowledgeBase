@@ -213,7 +213,6 @@ time or a timeout occurs
         ```c
             struct threeNum num;
             FILE *fptr;
-
             fseek(fptr, -sizeof(struct threeNum), SEEK_END);
             // fseek(FILE * strean, long int offset, int whence)
             // 1. Pointer to the file
@@ -254,3 +253,11 @@ terminal gets input from the last entry and shows output on all.
 
 * Make sure to run `update-grub` to update the `/boot/grub/grub.cfg`.
 
+### **Linux Commands**
+
+* To see a list of open serial ports on linux , we could run the following command:
+
+    ```bash
+        dmesg | grep tty
+    ```
+    

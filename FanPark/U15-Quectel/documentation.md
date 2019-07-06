@@ -5,6 +5,11 @@
 * It's a wireless module that is supposed to work with an embedded 
 linux system. Have to study the design and implement the technology.
 
+* Pin definitions
+* Configure the module based on API or default values.
+* Implement the commands to access and interact with the module.
+* Communicate with serial ports.
+
 ## **Resources**
 
 ### **Quectel UC15 Mini PCIe**
@@ -214,9 +219,162 @@ the binary address of the sleve, data frames, read/write bits, ACK/NACK bits bet
 
 * Start condition - The SDA line switches from 
 
+### **Hardware Design Manual**
+
+#### **Operation Modes**
+
+* Normal Operation:
+
+    - Idle 
+
+    - Talk/Data 
+
+* Minimum functionality mode:
+
+    - `AT+CFUN=0` command can set the module entering into a minimum functionality mode without removing the power supply. 
+
+    - In this case both RF and USIM are invalid.
+
+* Sleep mode:
+
+    - Current consumption reduced to minimal.
+
+    - Can still receive paging messages, SMS, voice call and TCP/UDP data.
+
+    - Any URC can be output.
+
+#### **Power Saving**
+
+* Sleep Mode - UART Application
+
+    * Execute AT command `AT+QSCLK=1` to enable the sleep mode.
+
+    * Drive DTR to high level.
+
+    - The RI of module is used to wake up the processor, and AP_READY will detect the sleep state of processor. (High or Low level detection)
+
+    * Drive DTR to low level will wake up the module. 
+
+* Sleep Mode - USB Application with Suspend Function
+
+    * Execute AT command `AT+QSCLK=1` to enable the sleep mode.
+
+    * The processor's USB bus enters into suspend state.
+
+    - When the proessor's USB bus returns to resume state, the module will be woken up.
+
+* Sleep Mode - USB Application without Suspend Function
+
+    - Disconnect USB_VBUS with additional control circuit to let the module enter into sleep mode.
+
+    * Execute AT command `AT+QSCLK=1` to enable the sleep mode.
+
+    * Disconnect USB_VBUS.
+
+    - Supply power to USB_VBUS will wake up the module.
+
+* Minimum Functionality Mode
+
+    - Command `AT+CFUN` provides the choice of the cuntionality levels: `<fun>=0,1,4`.
+
+    * `AT+CFUN=0` Minimum functionality, RF part and USIM card will be closed.
+
+    * `AT+CFUN=1` Full functionality (by default).
+
+    * `AT+CFUN=4` Disable RF function (airplane mode), AT commands of RF are not accessible aswell.
+
+#### **Monitor the Power Supply**
+
+* You can use `AT+CBC` command to monitor the VBAT_BB voltage value.
+
+#### **Turn ON and OFF Scenarios**
+
+* Turn ON Module by PWRKEY Pin
+
+    - It can be turned on by driving the PWRKEY pin to low level at least 0.1s.
+
+    - Recommended to use an open collector driver to control the PWRKEY.
+
+    - The STATUS outputs high level after module is turned on.
+
+    - The other way to control the PWRKEY is to use a button directly. A TVS component is dispensable to be placed nearby the button for ESD protection.
+
+    - Make sure the VBAT is stable before pulling down PWRKEY pin. The time between then is recommended to be more than 0.03s.
+
+* Turn OFF Module
+
+    -  Turn of the module by PWRKEY pin.
+
+    -  Turn off the module by command `AT+QPOWD` 
+
+    -  Automatic shutdown:: Turn off the module automatically if under-voltage or over-voltage is detected.
+
+* Turn OFF Module by PWRKEY Pin
+
+    - Drive the PWRKEY to low level at least 0.6s, the module will execute the prcoedure adter the PWRKEY is released.
+
+    - During power-down, module will send out URC "NORMAL POWER DOWN" via URC port first, then log off network and save important data.
+
+    - After logging off, module sends out "POWERED DOWN" and shuts down the internal power supply. The power on VBAT pins are not allowed to be switched off before this URC is out put to avoid data loss.
+
+    - If module is not logged off within 60s, module will force to shut down internal power supply.
+
+    - In this state, no AT commands can be executed.
+
+* Turn OFF Module by AT Command
+
+    * Using the `AT+QPOWD` command.
+
+* Automatic  Shutdown
+
+    - The module will constantly monitor the voltage applied on the VBAT_BB and the following URCs are presented:
+
+        - `+QIND: "vbatt",-1`      <= 3.5 V
+
+        - `+QIND: "vbatt",1`      >= 4.21 V
+
+        - `+QIND: "vbatt",-2`     < 3.2 V
+
+        - `+QIND: "vbatt",2`     > 4.35 V
+
+        - The uncritical voltage is 3.3 V - 4.3 V, if the voltage goes above 4.35 V or drops below the 3.2 V, the module will automatically shutdown itself.
+
+    - The value of voltage threshold can be revised by AT command `AT+QCFG="vbatt"`.
+
+#### **Reset the Module**
+
+- You can reset the module by driving the RESET_N to low voltage for 0.05 ~ 0.2 s and then releasing.
+
+- The low-level pulse through the RESEST_N pin cannot last for more than 0.2s, otherwise the module will be powered off.
+
+#### **UART Interface**
+
+- The module provides one 7-wire UART interface, and is designed as the DCE.
+
+- It supports 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400, 460800 and 921600bps baud rate. The default is 115200bps.
+
+- The interface can be used for data transmission, AT communication and firmware upgrade.
+
+* Logic Levels of Digital IO
+
+Parameter | Min | Max 
+-----------------------
+VIL | -0.3 | 0.91
+VIH | 1.69 | 2.9
+VOL | 0 | 0.45
+VOH | 2.15 | 2.6
+
+- The module disables the hardware flow control by default. AT command `AT+IFC=2,2` is used to enable hardware flow control. AT command `AT+IFC=0,0` is used to disable the hardware flow control.
+
+
+
+### **Design Tips**
+
+* When the module cannnot be turned off by PWRKEY pin, or other abnormalities occur, it is suggested to switch off the pwoer supply for module to shut it down, and then power on again.
+
 ### **Glossary**
 
-* UMTS: Is a 3G cellular system network based on the GSM standard. 
+* **UMTS**: Is a 3G cellular system network based on the GSM standard. 
 
     - It is a part of the ITU IMT-2000 standard set and compares 
     with CDMA2000 standard set for networks based on competing 
@@ -226,7 +384,42 @@ the binary address of the sleve, data frames, read/write bits, ACK/NACK bits bet
     greater spectral efficiency and bandwidth to mobile network 
     operators.
 
-    - It specifies a complete network system, which includes the radio 
-    access network - UTRAN, the core network MAP - Mobile 
+    - It specifies a complete network system, which includes the radio access network - UTRAN, the core network MAP - Mobile 
     Application Part - and the authentication of users via SIM 
     cards.
+
+* **PCM**: Is a digital representation of an audio signal, 
+
+    - I2S is a electrical serial interface used to transmit data 
+    from one device to another.
+
+    - It has a line used to deliniate frames called frame clock, a 
+    line for maeking individual bits called the bit clock and 1 or 
+    more lines for the data.
+
+    - At the start pf each frame clock a PCM sample is serialized 
+    bit by bit with a high voltage for a 1 and a zero voltage for 
+    0 . This bit is held at that value for the entire duration of 
+    a bit clock and then it moves onto the next bit.
+
+* **Unsoliticied Result Code - URC**: Is the message that is sent from
+  ME that's not the result of the AT command.
+
+    - Unless you have programmed any of application that deals with the modem directly, you will notice that URC sometimes destroys your parser state machine when it fires in the middle of executing AT command.
+
+    - To fix this issue:
+
+        1- Turn ON the ECHO: this way, you can detect the sequence of the command /URC that's received by the modem. If not enabled, has to be activated via `ATE1` command.
+
+        2- Give delay for each AT command: All AT commands are ended with OK (or ERROR/+CME ERROR/+CMS ERROR).Once you received the string, you need to wait before launching another AT command. This way, the modem guarantees that it will not issue URC while AT command is processed.
+
+        3- Use the special purpose pin: There is a special pin on certain modems that will be pulled low during the URC.  This might be used as the low triggered interrupt for the main MCU/MPU.
+
+* **Low Dropout - LDO**: Is a DC-voltage regulator that can regulate the output voltage even when the supply voltage is very close to the output voltage.
+
+* **Transient Voltage-Suppression diode - TVS**: TVS diodes are constructed with large cross sectional area junctions for absorbing high transient currents. 
+
+    - As a result, the transient current is diverted away from the protected components and shunted through the TVS diode. 
+
+    - The voltage across the protected circuit is limited to the clamping voltage of the TVS diode.
+

@@ -357,20 +357,86 @@ the binary address of the sleve, data frames, read/write bits, ACK/NACK bits bet
 
 * Logic Levels of Digital IO
 
-|Parameter | Min | Max |
------------|------|------
-| VIL | -0.3 | 0.91 | 
-| VIH | 1.69 | 2.9 | 
-| VOL | 0 | 0.45 | 
-| VOH | 2.15 | 2.6 |
+Parameter | Min | Max 
+----------|------|-------
+VIL | -0.3 | 0.91
+VIH | 1.69 | 2.9
+VOL | 0 | 0.45
+VOH | 2.15 | 2.6
 
 - The module disables the hardware flow control by default. AT command `AT+IFC=2,2` is used to enable hardware flow control. AT command `AT+IFC=0,0` is used to disable the hardware flow control.
 
+* UART Application
 
+- Rising edge on DTR will let the module exit from the data mode by default. It can be disabled by command.
+
+- DCD is used as data mode indication. (`AT&C`, `AT&V`).
+
+* Behavior of  the RI
+
+    * You can use command `AT+QCFG="risignaltype", "physical"` to configure RI behavior.
+
+    - URC will trigger the behavior of RI no matter which port it is presented on.
+
+    - URC can be output from UART port, USB AT port, USB modem port by command `AT+QURCCFG`. The default port is USB AT port.
+
+    - RI behavior can be configured flexible.
+
+    State | Response
+    ------|----------
+    Idle  | RI keeps in high level
+    URC | RI outputs 120ms low pulse when new URC is reported
+
+    -  The RI behavior can be changed by command `AT+OCFG="urc/ri/ring"`.
+
+#### **USIM Card Interface**
+
+- Some AT commands are invalid when USIM card is not applied.
+
+- UC15 supports USIM card hot-plugging via the USIM_PRESENCE pin.
+
+#### **USB Interface**
+
+#### **ADC Function**
+
+- The module provides two ADC to digitize the analog signal to 12-bit signal data. Using AT command `AT+QADC=0` can read the voltage value on ADC0 pin.
+
+- In order to improve the accuracy of ADC, the trace should be surrounded by ground.
+
+Parameter | Min | Typical | Max | Unit
+----------|-----|---------|-----|------
+ADC Voltage Range | 0 |  | 2.1 | V
+Sample Rate | | 2.4 | | MHz
+ADC Resolution | | 12 | | bits
+
+#### **Network Status Indication**
+
+Pin Name | Status | Desc
+---------|--------|------
+NETLIGHT | 200 ms High/1800 ms Low | Network searching
+ | 1800 ms High/200 ms Low | Idle
+ | 125ms High/125 ms Low | Data transfer is ongoing
+ | Always High | Voice calling
+ | Always Low | Sleep
+
+#### **Operating Status Indication**
+
+- When the module is turned on normally, the STATUS will output high level.
+
+#### **Power Supply Ratings**
+
+Parameter | Desc | Conditions | Min - Typ. - Max | Unit
+----------|------|------------|------------------|------
+VBAT | VBAT_BB and VBAT_RF | Voltage must stay within the min/max values, including voltage drops, ripple, and spikes | 3.3 - 3.8 - 4.3 | V
+VBAT | Voltage drop during transmitting burst | Maximum power control level on GSM850 and EGSM900 | - - 400 | mV
+IVBAT | Peak supply current (during transmission slot) | Maximum power control level on GSM850 and EGSM900 | - 1.8 - 2.0 | A
+USB_VBUS | USB detection | 3.0 - 5.0 - 5.25 | V
 
 ### **Design Tips**
 
 * When the module cannnot be turned off by PWRKEY pin, or other abnormalities occur, it is suggested to switch off the pwoer supply for module to shut it down, and then power on again.
+
+* USIM Design Notes !!!!
 
 ### **Glossary**
 

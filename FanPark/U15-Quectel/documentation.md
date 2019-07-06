@@ -357,12 +357,12 @@ the binary address of the sleve, data frames, read/write bits, ACK/NACK bits bet
 
 * Logic Levels of Digital IO
 
-Parameter | Min | Max 
------------------------
-VIL | -0.3 | 0.91
-VIH | 1.69 | 2.9
-VOL | 0 | 0.45
-VOH | 2.15 | 2.6
+|Parameter | Min | Max |
+-----------|------|------
+| VIL | -0.3 | 0.91 | 
+| VIH | 1.69 | 2.9 | 
+| VOL | 0 | 0.45 | 
+| VOH | 2.15 | 2.6 |
 
 - The module disables the hardware flow control by default. AT command `AT+IFC=2,2` is used to enable hardware flow control. AT command `AT+IFC=0,0` is used to disable the hardware flow control.
 

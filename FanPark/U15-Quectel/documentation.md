@@ -582,11 +582,11 @@ Execution Command | `AT+<x>` | This command reads non-variable parameters affect
 
 Parameter | Value | Desc
 ----------|------|-------
-`<fun>` | 0 | Minimum functionality
-`<fun>` | 1 | Full functionality (Default)
-`<fun>` | 4 | Disable phone both transmit and receive RF circuits
-`<rst>` | 0 | Do no nreser the ME before setting it to <fun> power level. This is default when <rst> is not given.
-`<rst>` | 1 | Reset the ME. The device is fully functional after the reset. This value is available only for <fun>=1.
+<fun> | 0 | Minimum functionality
+ | 1 | Full functionality (Default)
+ | 4 | Disable phone both transmit and receive RF circuits
+<rst> | 0 | Do no nreser the ME before setting it to <fun> power level. This is default when <rst> is not given.
+ | 1 | Reset the ME. The device is fully functional after the reset. This value is available only for <fun>=1.
 
 * `AT+CMEE` Erro Message Format
 
@@ -598,9 +598,9 @@ Parameter | Value | Desc
 
 Parameter | Value | Desc
 ----------|-------|-------
-`<n>` | 0 | Disable result code
-`<n>` | 1 | Enable result code and use numeric value
-`<n>` | 2 | Enable result code and use verbose values
+<n> | 0 | Disable result code
+ | 1 | Enable result code and use numeric value
+ | 2 | Enable result code and use verbose values
 
 * `AT+CSCS` Select TE Character Set
 
@@ -612,9 +612,9 @@ Parameter | Value | Desc
 
 Parameter | Value 
 ----------|-------
-`<chset>` | GSM
-`<chset>` | IRA
-`<chset>` | UCS2
+<chset> | GSM
+ | IRA
+ | UCS2
 
 * `AT+QURCCFG` Configure URC indication option - will be saved to NV immediately.
 
@@ -626,9 +626,9 @@ Parameter | Value
 
 Parameter | Value | Desc
 ----------|-------|-------
-`<urcportvalue>` | usbat | USB AT port
-`<urcportvalue>` | usb modem | USB modem port
-`<urcportvalue>` | uart1 | Main UART
+<urcportvalue> | usbat | USB AT port
+ | usb modem | USB modem port
+ | uart1 | Main UART
 
 #### **Serial Interface Control Commands**
 
@@ -650,11 +650,11 @@ Parameter | Value | Desc
     
 Parameter | Value | Desc
 ----------|-------|-------
-`<format>` | 3 | 8 data 0 parity 1 stop
-`<parity>` | 0 | Odd
-`<parity>` | 1 | Even 
-`<parity>` | 2 | Mark(1)
-`<parity>` | 3 | Space (0)
+<format> | 3 | 8 data 0 parity 1 stop
+<parity> | 0 | Odd
+ | 1 | Even 
+ | 2 | Mark(1)
+ | 3 | Space (0)
 
 - The <parity> field is ignored if the <format> field specifies no parity.
 
@@ -668,10 +668,10 @@ Parameter | Value | Desc
 
 Parameter | Value | Desc
 ----------|-------|------
-`<dce_by_dte>` | 0 | None
-`<dce_by_dte>` | 2 | RTS flow control
-`<dte_by_dce>` | 0 | None
-`<dte_by_dce>` | 2 | CTS flow control
+<dce_by_dte> | 0 | None
+ | 2 | RTS flow control
+<dte_by_dce> | 0 | None
+ | 2 | CTS flow control
 
 - This flow control is applied for data mode.
 
@@ -699,6 +699,210 @@ Parameter | Value | Desc
     - Test Command: `AT+QRIR=?`
 
     - Execution Command: `AT+QRIR`
+
+#### **Status Control COmmands**
+
+* `AT+CPAS` Mobile Equipment Activity Status
+
+    - Test Command: `AT+CPAS=?`
+
+    - Execution Command: `AT+CPAS`
+
+Parameter | Value | Desc 
+----------|-------|--------
+`<pas` | 0 | Ready
+`<pas` | 3 | Ringing
+`<pas` | 4 | Call in progress
+
+* `AT+QCFG` Extended Configuration Settings (Page  39)
+
+* `AT+QINDCFG` URC Indication Configuration
+
+    - Test Command: `AT+QINDCFG=?`
+
+    - Read Command: `AT+QINDCFG?`
+
+    - Write Command: `AT+QINDCFG=<urctype[,<enable>[.<savetonvram>]]>`
+
+Parameter | Value | Desc
+----------|-------|----------
+`<urctype>` | "all" | Main switch of all URCs. Default is on.
+`<urctype>` | "csq" | Indication of signal strength and channel bit error rate change. Dfault is off. If this configuration is present: `+QIND: "csq",<rssi><ber>`
+`<urctype>` | "smsfull" | SMS storage is full. Default is off. If this configuration is present: `+QIND: "smsfull",<storage>`
+`<urctype>` | "ring" | RING indicartion. Default is on.
+`<urctype>` | "smsincoming" | Incoming message indication, default is on. Related URCs list: +CMTI, +CMT, +CDS, +CBM.
+`<urctype>` | "ccinfo" | INDication of voice call state change, default is off.
+`<enable>` | 0 | Off
+`<enable>` | 1 | On
+`<savetonvram>` | 0 | Not save
+`<savetonvram>` | 1 | Save
+
+* `AT+CEER` Extended Error Report
+
+    - Test Command: `AT+CCEER=?`
+
+    - Execution Command: `AT+CEER`
+
+* `AT+QGBAND` Get Module Operation Band
+
+    - Test Command: `AT+QGBAND=?`
+
+    - Execution Command: `AT+QGBAND`
+
+Parameter | Value | Desc
+----------|-------|---------
+`<currentband>` | 1 | GSM 900
+`<currentband>` | 2 | GSM 1800
+`<currentband>` | 4 | GSM 850
+`<currentband>` | 8 | GSM 1900
+`<currentband>` | 16 | WCDMA 2100
+`<currentband>` | 32 | WCDMA 1900
+`<currentband>` | 64 | WCDMA 850
+`<currentband>` | 128 | WCDMA 900
+`<currentband>` | 256 | WCDMA 800
+
+#### **SIM Related Commands**
+
+*  `AT+CIMI` Request International Mobile Subscriber Identity (IMSI) - returns a string without double quotes
+
+    - Test Command: `AT+CIMI=?`
+
+    - Execution Command: `AT+CIMI`
+
+* `AT+CLCK` Facility Lock
+
+    - Test Command: `AT+CLCK=?`
+
+    - Execution Command: `ALT+CLCK=<fac>,<mode>,[<passwd>[<class>]]`
+
+    - References on page 69
+
+* `AT+CPIN` Enter PIN
+
+    - Test Command: `AT+CPIN=?`
+
+    - Read Command: `AT+CPIN`
+
+    - Write Command: `AT+CPIN=<pin>[,<new pin>]`
+
+    - References on page 72
+
+* `AT+CPWD` Change Password
+
+    - Test Command: `AT+CPWD=?`
+
+    - Write Command: `AT+CPWD=<fac>,<oldppwd,<newpwd>`
+
+    - References on page 73
+
+* `AT+CSIM` Generic SIM Access
+
+    - Test Command: `AT+CSIM=?`
+
+    - Write Command: `AT+CSIM=<length>,<command>`
+
+    - References on page 75
+
+* `AT+CRSM` Restricted SIM Access
+
+    - Test Command: `AT+CRSM=?`
+
+    - Write Command: `AT+CRSM=<command>[,<filed>[,<P1>,<P2>,<P3>[,<data>][,<pathid>]]]`
+
+    - References on page 75
+
+* `AT+QFUN` Set Phone Extended Functionality
+
+    - Test Command: `AT+QFUN=?`
+
+    - Write Command: `AT+QFUN=<op>`
+
+    Parameter | Value | Desc
+    ----------|-------|-------
+    `<op>` | 5 | Perform a power down to the SIM card
+    `<op>` | 6 | Perform a power up to the SIM card
+
+    - If you want to use `+QFUN` to swap SIM card, there should be some delay of 5s at least between power up and down.
+
+    - It is not recommended to swap SIM cards fleetly or frequently.
+
+* `AT+QINISTAT` Query Status of SIM Card Initialization
+
+    - Test Command: `AT+QINISTAT=?`
+
+    - Write Command: `AT+QINISTAT`
+
+    Parameter | Value | Desc
+    ----------|-------|-------
+    `<status>` | 0 | initial state
+    `<status>` | 1 | CPIN READY. Operation like lock/unlock PIN is allowed.
+    `<status>` | 2 | SMS initialization complete
+    `<status>` | 3 | Phonebook initialization complete
+
+* `AT+QPIN2` Query/Unlock SIM PIN2/PUK2
+
+    - Test Command: `AT+QPIN=?`
+
+    - Read Command: `AT+QPIN2?`
+
+    - Write Command: `AT+QPIN2=<pin>[,<newpin>]`
+
+    Parameter | Value | Desc
+    ----------|-------|------
+    `<code>` | READY | MT is not pending for SIM PIN2/PUK2
+    `<code>` | SIM PIN2 | MT is waiting SIM PIN2 to be given
+    `<code>` | SIM PUK2 | MT is waiting SIM PUK2 to be given
+    `<pin>` | Password (String type) | If the requested password is PUK, then `<pin>` must be followed by `<newpin>`.
+    `<newpin>` | Password (String type) | If the requested code is PUK.
+
+* `AT+QPINC` Display PIN Remainder Counter
+
+    - Test Command: `AT+QPINC=?`
+
+    - Read Command: `AT+QPINC?`
+
+    - Write Command: `AT+QPINC=<facility>`
+
+    Parameter | Value | Desc
+    ----------|-------|-------
+    `<facility>` | SC | SIM PIN
+    `<facility>` | P2 | SIM PIN2
+    `<pincounter>` | number of attempts left to enter the password of PIN.
+    `<pukcounter>` | number of attempts left to enter the password of PUK.
+
+* `AT+QSIMDET` SIM Card Detection
+
+    - Test Command: `AT+QSIMDET=?`
+
+    - Read Command: `AT+QSIMDET?`
+
+    - Write Command: `AT+QSIMDET=<enable>,<insert_level>`
+
+    Parameter | Value | Desc
+    ----------|-------|-------
+    `<enable>` | 0 | off
+    `<enable>` | 1 | on
+    `<insert_level>` | 0 | Low level
+    `<insert_level>` | 1 | High level
+
+* `AT+QSIMSTAT` SIM Inserted Status Report
+
+    - Test Command: `AT+QSIMSTAT=?`
+
+    - Read Command: `AT+QSIMSTAT?`
+
+    - Write Command: `AT+QSIMSTAT=<enable>`
+
+    Parameter | Value | Desc
+    ----------|-------|-------
+    `<enable>` | 0 | off
+    `<enable>` | 1 | on
+    `<insert_level>` | 0 | Low level
+    `<insert_level>` | 1 | High level
+    `<insert_level>` | 2 | Unknown, before SIM initialization
+
+    - References on page 82
+
 
 
 ### **Glossary**
@@ -752,27 +956,23 @@ Parameter | Value | Desc
 
     - The voltage across the protected circuit is limited to the clamping voltage of the TVS diode.
 
-* **Hayes-compatible Modems**: These modems are named after the Hayes smartmodem, and any modem that complies with AT   
-    commands is called Hayes-compatible.
+* **Hayes-compatible Modems**: These modems are named after the Hayes smartmodem, and any modem that complies with AT commands is called Hayes-compatible.
 
     - AT is used since the command try to  grab the modem\s "attention".
 
     - The DCE components are controlled by the DTE equipments.
 
-    - Outband Signaling is known as the technique used in most RS232 modems, which would be using separate Rx and Tx   
-    lines and different control lines. 
+    - Outband Signaling is known as the technique used in most RS232 modems, which would be using separate Rx and Tx lines and different control lines. 
 
-    - Inbound signaling is used in Hayes-compatible modems, and it uses same Rx, Tx lines to transmit control signals   
-    over the lines as well.
+    - Inbound signaling is used in Hayes-compatible modems, and it uses same Rx, Tx lines to transmit control signals over the lines as well.
 
-    - It requires for both enpoints to be synced together since, if that's not the case, either data will be lost or            
-    interpreted as commands.
+    - It requires for both enpoints to be synced together since, if that's not the case, either data will be lost or interpreted as commands.
 
     - Some virtual ports are used recently to separate the control signals from data lines.
 
     - Modems have multiple states:
 
-        - Command State: While in this mode, modem interprets all the input as commands, it can still be connected to a third party.
+        * Command State: While in this mode, modem interprets all the input as commands, it can still be connected to a third party.
 
         * On-line State: In this state, data is interpreted as payload and it requires a remote connection to another 3rd party to forward the data.
 

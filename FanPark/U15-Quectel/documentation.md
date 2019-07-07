@@ -437,6 +437,269 @@ USB_VBUS | USB detection | 3.0 - 5.0 - 5.25 | V
 * When the module cannnot be turned off by PWRKEY pin, or other abnormalities occur, it is suggested to switch off the pwoer supply for module to shut it down, and then power on again.
 
 * USIM Design Notes !!!!
++
+### **AT Commands**
+
+#### **Introduction**
+
+* The `AT` prefix must be set at the beginning of each command line.
+
+* To terminate a command line enter `<CR>`.
+
+* Commands are usually followed by a response that includes `<CR><LF><response><CR><LF>`.
+
+* All AT commands can be split into three categories:
+
+    - "basic"
+    
+    - "S parameter"
+    
+    - "extendded"   
+
+* Basic syntax
+
+    - `AT<x><n>` or `AT&<x><n>` where `<x>` is the command, and the `<n>` is the argument for that command.
+
+* S paramter syntax
+
+    - `ATS<n>=<m>` where `<n>` is the index of the S register to set, and `<m>` is the valye to assign to it.
+
+* Extended Commands:
+
+Test Command | `AT+<x>=?` | This command returns the list of parameters and value ranges set by the corresponding Write Command or internal processes.
+Read Command | `AT+<x>?`| This command returns the currently set value of the parameter or parameters.
+Write Command | `AT+<x>=<...>` | This command sets the user-defined parameter values.
+Execution Command | `AT+<x>` | This command reads non-variable parameters affected by internal processes in the UE.
+
+* THe UC15 command interface defaults to the "GSM" character set. It supports the following charcter sets:
+
+    - GSM
+
+    - UCS2
+
+    - IRA
+
+* The character set can be configured and interrogated by using the `AT+CSCS` command.
+
+* The character set affects transmission and reception of SMS and SMS cell broadcast messages, the entry and display of the phone book entries text field.
+
+* The UC15 AT command interface includes two USB MODEM and USB AT ports. Both the UART and USB MODEM support AT command and data transfer. The USB AT supports only AT command.
+
+* AT command Interface - UART port
+
+    - The baud rates of 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600, 3200000, 3686400 and 4000000 are supported at present. The default is 115200.
+
+    - The main UART port supports hardware flow control lines RTS and CTS. But it is off by default. AT command `AT+IFC=2,2` is used to enable hardware flow control.
+
+* URC 
+
+    - URC is issued by the UC15 without being requested by the TE and it is issued automatically when a certain event occurs. Typical events leading to URCs are incoming calls ("RING"), received short messages, high/low voltage alarm, high/low temperature alarm.
+
+    - For most of these messages, they will be outputted from USB AT port by default if CMUX function is disabled, and you can configure the interface for URC output by using the AT command `AT+QURCCFG` (This command only effects when CMUX function is disabled).
+
+    - If CMUX function is enabled, URCs will be outputted from CMUX2 port by default. While the interface used for URC output is reserved by an active data connection or a long running AT command, URCs are buffered internally and will be issued after the interface becomes idle status.
+
+* Turn off Procedure
+
+    - It is recommended to execute `AT+QPOWD` command to turn off the module.
+
+    - In order to avoid data loss, it is suggested to wait for 1s to switch off the VBAT after the STATE pin is set as low and the URC "POWERED DOWN" is outputted.
+
+    - If this URC has not been received after 65s, you should force to seitch off the VBAT.
+
+#### **General Commands**
+
+* `ATI` Display Product Identification Information
+
+* `AT+GMI` Request Manufacturer Identification
+
+* `AT+GMM` Request TA Model IDentification
+
+* `AT+GMR` Request TA Revision Identification of Software Release
+
+* `AT+CGMI`  Request Manufacturer Identification
+
+* `AT+CGMM` Request Model Identification
+
+* `AT+GSN` Request International Mobile Equipment Identity (IMEI)
+
+* `AT+CGSN` Request Product Serial Number Identification
+
+* `AT&F` Set all current parameters to manufacturer defaults, does not change the current baudrate of the UARt.
+
+* `AT&V` Display Current Configuration - including the single-letter AT command parameters which are not readable otherwise.
+
+* `AT&W` Store Current Parameters to User Defined Profile -  in non-volatile memory
+
+* `ATZ` Set all Current Parameters to User Defined Profile - does not change the current baudrate of UART.
+
+* `ATQ` Set Result Code Presentation Mode
+
+* `ATV` TA Response Format
+
+* `ATE` Set Command Echo Mode
+
+    - <value>: 0 Echo off, 1 Echo on
+
+* `A/` Repeat Previous Command Line
+
+* `ATS3` Set Command Line Termination Character
+
+    - Read Command: `ATS3?` 
+
+    - Write Command: `ATS3=<n>`
+
+* `ATS4` Set Response Formatting Character
+
+    - Read Command: `ATS4?` 
+
+    - Write Command: `ATS4=<n>`
+
+* `ATS5` Set Response Formatting Character
+
+    - Read Command: `ATS5?` 
+
+    - Write Command: `ATS5=<n>`
+
+* `ATX` Set CONNECT Result Code Format and Monitor Call Progress
+
+<value> | Desc
+--------|-------
+0 | CONNECT result code only returned, dial tone and busy detection are both disabled.
+1 | CONNECT<text> result code only returned, dial tone and busy detection are both disabled.
+2 | CONNECT<text> result code only returned, dial tone detection is enabled and busy detection is disabled.
+3 | CONNECT<text> result code only returned, dial tone detection is disabled and busy detection is enabled.
+4 | CONNECT<text> result code returned, dial tone and busy detection are both enabled.
+
+* `AT+CFUN` Set Phone Functionality - can also be used to reset the UE
+
+    - Test Command `AT+CFUN=?` 
+
+    - Read Command `AT+CFUN?`
+
+    - Write Command `AT+CFUN=<fun>[,<rst>]`
+
+
+Parameter | Value | Desc
+----------|------|-------
+`<fun>` | 0 | Minimum functionality
+`<fun>` | 1 | Full functionality (Default)
+`<fun>` | 4 | Disable phone both transmit and receive RF circuits
+`<rst>` | 0 | Do no nreser the ME before setting it to <fun> power level. This is default when <rst> is not given.
+`<rst>` | 1 | Reset the ME. The device is fully functional after the reset. This value is available only for <fun>=1.
+
+* `AT+CMEE` Erro Message Format
+
+    - Test Command `AT+CMEE=?` 
+
+    - Read Command `AT+CMEE?`
+
+    - Write Command `AT+CMEE=<n>`
+
+Parameter | Value | Desc
+----------|-------|-------
+`<n>` | 0 | Disable result code
+`<n>` | 1 | Enable result code and use numeric value
+`<n>` | 2 | Enable result code and use verbose values
+
+* `AT+CSCS` Select TE Character Set
+
+    - Test Command `AT+CSCS=?` 
+
+    - Read Command `AT+CSCS?`
+
+    - Write Command `AT+CSCS=<chset>`
+
+Parameter | Value 
+----------|-------
+`<chset>` | GSM
+`<chset>` | IRA
+`<chset>` | UCS2
+
+* `AT+QURCCFG` Configure URC indication option - will be saved to NV immediately.
+
+    - Test Command `AT+QURCCFG=?` 
+
+    - Read Command `AT+QURCCFG?`
+
+    - Write Command `AT+QURCCFG="urcport"[,<urcportvalue>]`
+
+Parameter | Value | Desc
+----------|-------|-------
+`<urcportvalue>` | usbat | USB AT port
+`<urcportvalue>` | usb modem | USB modem port
+`<urcportvalue>` | uart1 | Main UART
+
+#### **Serial Interface Control Commands**
+
+* `AT&C` Set DCD Function Mode
+
+    - <value>:  0 DCD line is always ON, 1 DCD line is ON only in the presence of data carrier.
+
+* `AT&D` Set DTR Function Mode
+
+    - <value>: 0 TA ignores status on DTR, 1 ON -> )OFF on DTR: Change to command mode with remaining the connected call, 2 ON -> OFF on DTR: Disconnect data call, change to command mode. During state DTR=OFF, auto-answer is off.
+
+* `AT+ICF` Set TE-TA Control Character Framing
+
+    - Test Command `AT+ICF=?` 
+
+    - Read Command `AT+ICF?`
+
+    - Write Command `AT+ICF=[<format>,[<parity>]`
+    
+Parameter | Value | Desc
+----------|-------|-------
+`<format>` | 3 | 8 data 0 parity 1 stop
+`<parity>` | 0 | Odd
+`<parity>` | 1 | Even 
+`<parity>` | 2 | Mark(1)
+`<parity>` | 3 | Space (0)
+
+- The <parity> field is ignored if the <format> field specifies no parity.
+
+* `AT+IFC` Set TE-TA Local Data Flow Control
+
+    - Test Command `AT+IFC=?` 
+
+    - Read Command `AT+IFC?`
+
+    - Write Command `AT+IFC=<dce_by_dte><dte_by_dce>`
+
+Parameter | Value | Desc
+----------|-------|------
+`<dce_by_dte>` | 0 | None
+`<dce_by_dte>` | 2 | RTS flow control
+`<dte_by_dce>` | 0 | None
+`<dte_by_dce>` | 2 | CTS flow control
+
+- This flow control is applied for data mode.
+
+* `AT+IPR` Set TE-TA Fixed Local Rate (baudrate)
+
+    - Test Command `AT+IPR=?` 
+
+    - Read Command `AT+IPR?`
+
+    - Write Command `AT+IPR=<rate>`
+
+- The value of `AT+IPR` cannot be restored with `AT&F` and `ATZ`, but it is still storable with `AT&W`.
+
+- In multiplex mode, none of the above command including `AT+IPR` are valid.
+
+- The following sequence of commands can be summarized into `AT+IPR=115200;&W`:
+
+    AT+IPR=115200
+    OK
+    AT&W
+    OK
+
+* `AT+QRIR` Set Ring Line to Inactive
+
+    - Test Command: `AT+QRIR=?`
+
+    - Execution Command: `AT+QRIR`
+
 
 ### **Glossary**
 
@@ -488,4 +751,39 @@ USB_VBUS | USB detection | 3.0 - 5.0 - 5.25 | V
     - As a result, the transient current is diverted away from the protected components and shunted through the TVS diode. 
 
     - The voltage across the protected circuit is limited to the clamping voltage of the TVS diode.
+
+* **Hayes-compatible Modems**: These modems are named after the Hayes smartmodem, and any modem that complies with AT   
+    commands is called Hayes-compatible.
+
+    - AT is used since the command try to  grab the modem\s "attention".
+
+    - The DCE components are controlled by the DTE equipments.
+
+    - Outband Signaling is known as the technique used in most RS232 modems, which would be using separate Rx and Tx   
+    lines and different control lines. 
+
+    - Inbound signaling is used in Hayes-compatible modems, and it uses same Rx, Tx lines to transmit control signals   
+    over the lines as well.
+
+    - It requires for both enpoints to be synced together since, if that's not the case, either data will be lost or            
+    interpreted as commands.
+
+    - Some virtual ports are used recently to separate the control signals from data lines.
+
+    - Modems have multiple states:
+
+        - Command State: While in this mode, modem interprets all the input as commands, it can still be connected to a third party.
+
+        * On-line State: In this state, data is interpreted as payload and it requires a remote connection to another 3rd party to forward the data.
+
+        * Originating Mode: Setting up a connection by calling or initiating the protocols.
+
+        * Answer Mode: Waiting to be contacted.
+
+    - Modems are supposed to send responses to all commands, which can be in either ASCII, numeriacal or string. These responses have to be revised with great care and should be parsed and look for interesting data or keywords, as it can notify the DTE on connection states.
+
+    - The S-registers are permanent storages that store various settings. Data can be saved either using AT commands or directly through S-registers.
+
+    -  
+    `
 

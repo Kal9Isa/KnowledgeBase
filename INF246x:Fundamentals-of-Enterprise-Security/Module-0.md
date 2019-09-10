@@ -1,7 +1,7 @@
 # **INF246x: Fundamentals of Enterprise Security**
 
 
-## **[Module 1 - Understanding the Cybersecurity Landscape]()**
+## **[Module 1 - Understanding the Cybersecurity Landscape](https://docs.google.com/document/d/1tuSOuyzhznqHjgxvfKwY4UpVUOx_zBlO7XiP4WnCv-I/edit?usp=sharing)**
 
 * The current cybersecurity landscape
 

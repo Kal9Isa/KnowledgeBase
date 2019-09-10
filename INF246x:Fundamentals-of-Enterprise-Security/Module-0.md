@@ -14,7 +14,7 @@
 * Evolution of Attacks
 
 
-## **[Module 2 - Red Team: Penetration, Lateral Movement, Escalation and Exfiltration]()**
+## **[Module 2 - Red Team: Penetration, Lateral Movement, Escalation and Exfiltration](https://docs.google.com/document/d/1KwVcGDr0-FtWNSzjgsFTvangnoLovYWF58dF5UcKfmA/edit?usp=sharing)**
 
 * Red Team vs. Blue Team
 

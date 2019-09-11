@@ -33,7 +33,7 @@
 * Demonstration of Golden Ticket Attack
 
 
-## **[Module 3 - Blue Team: Detection, Investigation, Response, and Mitigation]()**
+## **[Module 3 - Blue Team: Detection, Investigation, Response, and Mitigation](https://docs.google.com/document/d/1rWd8Pstmtwvx2tmB2D4cf1avFvVo-quj0P0UrCtYodQ/edit?usp=sharing)**
 
 * Gathering Baseline Data
 

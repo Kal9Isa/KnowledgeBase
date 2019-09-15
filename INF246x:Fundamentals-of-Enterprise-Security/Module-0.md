@@ -64,7 +64,7 @@
 * Attack Detection
 
 
-## **[Module 4 - Beyond the Breach]()**
+## **[Module 4 - Beyond the Breach](https://docs.google.com/document/d/1O4ToJtCxLdsaxZyUW5fSqwh-AU6bGwemVi93vmVcoGw/edit?usp=sharing)**
 
 * Developing a Baseline Security Posture
 

@@ -14,7 +14,7 @@
   
 ## **Course Syllabus**
 
-### **[Module 1: Introduction to threat detection as part of the defense in-depth strategy]()**
+### **[Module 1: Introduction to threat detection as part of the defense in-depth strategy](https://docs.google.com/document/d/1RT6lri8DYLGffd0EdhxQzBC5bbBWbrnS3kXHqBUc2iY/edit?usp=sharing)**
 
 * An overview of the modern cyber threat landscape
 

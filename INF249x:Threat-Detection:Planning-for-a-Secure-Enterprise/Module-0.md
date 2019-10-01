@@ -25,7 +25,7 @@
 * Combating threat persistence
 
 
-### **[Module 2: Detecting threats in on-premises environment]()**
+### **[Module 2: Detecting threats in on-premises environment](https://docs.google.com/document/d/1Tk3xLHByEGAojjrLa2iAZKCwMQhemVPUtOz-UCmmXeo/edit?usp=sharing)**
 
 * Windows Defender Advanced Threat Protection
 

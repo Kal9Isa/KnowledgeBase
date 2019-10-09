@@ -2,7 +2,7 @@
 
 ## **Course Outline**
 
-### **[Module 1: IoT Analytics and Cold Storage]()**
+### **[Module 1: IoT Analytics and Cold Storage](https://docs.google.com/document/d/1Z5dXH-K4fzDkE-DM8WgbabNAQ1xwCY9ZDKFh-N6X8U0/edit?usp=sharing)**
 
 * Lab 1: Configuring the Wind Farm Simulator
 

@@ -9,7 +9,7 @@
 * Lab 2: Getting Started with Data Lake Storage and Analytics
 
 
-### **[Module 2: Warm Storage]()**
+### **[Module 2: Warm Storage](https://docs.google.com/document/d/1J8r0932uneDMixeOjJ4SLtPrI6ziCTYcuS_80DcTTM0/edit?usp=sharing)**
 
 * Lab 1: Getting Started with the Warm Storage
 

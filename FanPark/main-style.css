@@ -1,0 +1,254 @@
+*, html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url("../assets/gradient-linear-grey-blue-1920x1080-c2-00ced1-d3d3d3-a-300-f-14.png");
+}
+
+/* Top bar */
+
+.dev-top-bar {
+    background-color: rgb(179, 204, 206);
+    display: block;
+    position: fixed;
+    z-index: 1;
+    padding: 0 0.5em;
+    min-width: 100%;        /* Base width to cover the screen */
+    text-align: right;
+}
+
+/* Icons on the left side of top bar */
+
+.top-left {
+    float: left;
+    padding: 0.4em 0;
+}
+
+/* Time and Date Container */
+
+.dev-timedate {
+    margin-top: 2em;
+    display: inline-block;
+    position: relative;
+    left: 17em;
+}
+
+/* General Clock Style */
+
+.dev-clock {
+    font-weight: bold;
+    font-family: 'Big Shoulders Text', cursive;
+    color: #3B3B3B;
+    position: relative;
+    display: inline;
+}
+
+.dev-hour, .dev-minute {
+    font-size: 5em;
+}
+
+.dev-second {
+    font-size: 2em;
+}
+
+p.dev-clock {
+    margin: 0;
+    display: inline;
+}
+
+.dev-date {
+    font-weight: bold;
+    font-family: 'Big Shoulders Text', cursive;
+    color: #3B3B3B;
+    display: inline;
+    position: relative;
+    left: 8em;
+    top: -4.3em;
+    font-size: 1.5em;
+}
+
+/* Menu Button */
+
+div.dev-menu {
+    background-color: rgb(179, 204, 206);
+    display: inline-block;
+    position: fixed;
+    top: 1.81em;
+    right: 1em;
+    z-index: 1;
+    border-radius: 0 0 1em 1em;
+}
+
+img.logo-menu {
+    width: 6em; 
+    margin-top: 0.7em;  
+}
+
+/* Dashboard General Style */
+
+.dev-dashboard {
+    background-color: rgba(56, 110, 114, 0.1);
+    display: block;
+    width: 96%;
+    position: relative;
+    left: 1em;
+    top: -2em;
+    padding: 1em;
+}
+
+/* Receiver Position Status */
+
+h3.dev-title {
+    font-weight: bold !important;
+    font-size: 1.5em !important;
+    font-family: 'Times New Roman', Georgia;
+    display: inline;
+}
+
+.dash-label {
+    font-size: 1.5em !important;
+}
+
+.dash-item {
+    margin-right: 5em;
+    font-family: 'Big Shoulders Text', cursive;
+    font-weight: bold;
+}
+
+hr {
+    margin: 0 0.2em 0 0.2em;
+}
+
+/* General Satellites Status */
+
+.sat-status {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.sat-tracked {
+    font-size: 3em;
+    margin-left: 1em;
+    font-family: 'Big Shoulders Text', cursive;
+    font-weight: bold;
+}
+
+.sat-in-view {
+    font-family: 'Big Shoulders Text', cursive;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+/* I/O Status */
+
+table.io-stat {
+    text-align: left;
+    padding: 0 2em !important;
+}
+
+th.dev-io {
+    font-size: 1em;
+}
+
+td.dev-stat {
+    padding-right: 2em;
+    font-size: 1.5em;
+}
+
+.fa-circle.online {
+    width: 1em !important;
+    color: rgb(22, 83, 48);
+    text-shadow: -3px 4px 2px rgba(22, 83, 48, 0.219);
+}
+
+.fa-circle.offline {
+    width: 1em !important;
+    color: red;
+    text-shadow: -3px 4px 2px rgba(255, 8, 0, 0.219);
+}
+
+.fa-exchange-alt.offline {
+    color: red;
+    text-shadow: -3px 4px 2px rgba(255, 8, 0, 0.219);
+}
+
+/* Hide Scrollbar */
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* Menu animation */
+
+#menu {
+    list-style: none;
+}
+
+.open {
+    display: none;
+}
+
+.menu-button {
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.menu-item-closed {
+    display: none;
+}
+
+.menu-item-open {
+    width: 6em;
+    height: 6em;
+    position: fixed;
+    right: 1em;
+    top: 7em;
+    margin: -50px 0 0 -50px;
+    background-color: rgb(179, 204, 206);
+    transform: translate(0px, 0px);
+    transition: transform 500ms;
+    z-index: 1;
+    transition: .5s;
+    text-align: center;
+    padding: 0 0 1.2em 0;
+}
+
+.menu-item-open a {
+    color: #3B3B3B;
+    position: relative;
+    top: 1.2em;
+    left: 0;
+    text-decoration: none;
+}
+
+#menu:target>.menu-item-open:nth-child(2) {
+    transform: rotate(0deg) translateY(5.5em) rotate(0deg);
+    transition-delay: 0.5s;
+}
+
+#menu:target>.menu-item-open:nth-child(3) {
+    transform: rotate(0deg) translateY(11.5em) rotate(0deg);
+    transition-delay: 0.6s;
+}
+
+#menu:target>.menu-item-open:nth-child(4) {
+    transform: rotate(0deg) translateY(17em) rotate(0deg);
+    transition-delay: 0.7s;
+} 
+
+/* Active menu button */
+
+li.menu-active {
+    background-color: #000;
+}
+
+li.menu-active > a {
+    color: rgb(21, 199, 243);
+}
+
+.isDisabled {
+    cursor: not-allowed;
+    pointer-events: none;
+}
